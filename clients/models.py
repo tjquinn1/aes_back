@@ -46,4 +46,4 @@ class Profile(models.Model):
 	emergencyContact = models.CharField(null=False, blank=False, max_length=50, min_length=2)
 	emergencyRelationship models.CharField(null=False, blank=False, max_length=20, min_length=3)
 	emergencyPhone = models.CharField(null=False, blank=False, max_length=10, min_length=10)
-	emergencyEmail = models.EmailField(blank=False, null=False)
+	emergencyEmail = models.EmailField(blank=False, null=False) 
