@@ -18,7 +18,8 @@ from django.urls import path, include, re_path
 from django.conf.urls import url, include
 from rest_framework import routers
 from aes_back.router import common_router 
-import accounts.urls  
+import accounts.urls
+import clients.urls
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 
 
@@ -26,6 +27,7 @@ from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify
 urlpatterns = [
     re_path(r'^', include(common_router.urls)),
     re_path(r'^accounts/', include('accounts.urls', namespace='accounts')),
+	re_path(r'^clients/', include('clients.urls', namespace='clients')),
     re_path(r'^auth/obtain_token/', obtain_jwt_token),
     re_path(r'^auth/refresh_token/', refresh_jwt_token),
 	re_path(r'^auth/api-token-verify', verify_jwt_token)
