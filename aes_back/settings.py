@@ -62,14 +62,11 @@ ROOT_URLCONF = 'aes_back.urls'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        #'rest_framework.permissions.IsAuthenticated',
-        'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticated',
+        #'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        #'rest_framework.authentication.SessionAuthentication',
-        #'rest_framework.authentication.TokenAuthentication',
-        #'rest_framework.authentication.BasicAuthentication',
     ),
 }
 CORS_ORIGIN_WHITELIST = (
@@ -84,9 +81,11 @@ CSRF_TRUSTED_ORIGINS = (
 
 
 JWT_AUTH = {
-    'JWT_ALLOW_REFRESH': True,
+	'JWT_VERIFY': True,
+	'JWT_VERIFY_EXPIRATION': True,
     'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+	'JWT_AUTH_HEADER_PREFIX': 'Bearer'
 }
 
 TEMPLATES = [
@@ -161,4 +160,4 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'assets')]
 AUTH_USER_MODEL = "accounts.User"
 LOGIN_REDIRECT_URL = '/login_success/'
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
