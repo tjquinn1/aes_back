@@ -11,12 +11,6 @@ router.register(r'users', views.UserViewSet)
 app_name = 'accounts'
 
 urlpatterns = [
-    # url(r"login/$", views.LoginView.as_view(), name="login"),
     url(r'^login/', obtain_jwt_token),
-    url(r"^logout/$", views.logout_view, name="logout"),
     url(r'^register', views.CreateUserView.as_view(), name="reg"),
-    #url(r"signup/$", views.SignUp.as_view(), name="signup"),
-    url(r'edit/$', views.Edit, name='edit'),
-    url(r'^login/$', views.custom_login, name='login'),
-     url(r'^verify/', verify_jwt_token),
-]
+	url(r'^verify/', verify_jwt_token),]

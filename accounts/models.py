@@ -8,11 +8,6 @@ from django.utils import timezone
 import binascii
 import os
 from django.conf import settings
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from rest_framework.authtoken.models import Token
-
-
 
 class UserManager(BaseUserManager):
 	def create_user(self, email, first_name, last_name, password, pos):
@@ -65,8 +60,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 	date_joined = models.DateTimeField(default=timezone.now)
 	is_active = models.BooleanField(default=True)
 	is_staff = models.BooleanField(default=False)
-	pos = models.CharField(max_length=4, null=True) 
-	token = models.CharField(max_length=40, null=True)
+	pos = models.CharField(max_length=4, null=True)
 
 	objects = UserManager()
 
@@ -99,8 +93,3 @@ class User(AbstractBaseUser, PermissionsMixin):
 		"Is the user a member of staff?"
 		# Simplest possible answer: All admins are staff
 		return self.is_superuser
-
-@receiver(post_save, sender=settings.AUTH_USER_MODEL)
-def create_auth_token(sender, instance=None, created=False, **kwargs):
-	if created:
-		Token.objects.create(user=instance)

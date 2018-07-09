@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['127.0.0.1' ,'http://localhost:8080/#/', 'http://localhost:8000
 
 INSTALLED_APPS = [
     'accounts',
+	'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,15 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'corsheaders',
 	'consul',
-	'clients'
+	'clients',
 ]
 
 MIDDLEWARE = [
+	'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -72,6 +72,8 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_WHITELIST = (
     'localhost:8000',
     'localhost:8080',
+	'localhost:8080/mast',
+	'127.0.0.1:8080'
 )
 
 CSRF_TRUSTED_ORIGINS = (
@@ -85,7 +87,6 @@ JWT_AUTH = {
 	'JWT_VERIFY_EXPIRATION': True,
     'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
-	'JWT_AUTH_HEADER_PREFIX': 'Bearer'
 }
 
 TEMPLATES = [
@@ -160,4 +161,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'assets')]
 AUTH_USER_MODEL = "accounts.User"
 LOGIN_REDIRECT_URL = '/login_success/'
 
-CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_NAME = "XSRF-TOKEN"
+CSRF_USE_SESSIONS = False

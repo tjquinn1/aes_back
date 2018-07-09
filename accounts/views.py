@@ -17,9 +17,11 @@ from rest_framework import viewsets
 from accounts.serializers import UserSerializer
 from django.contrib.auth import get_user_model
 from rest_framework.decorators import api_view
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
-from rest_framework import permissions
+from rest_framework import permissions, status
 from rest_framework.generics import CreateAPIView
+from rest_framework.response import Response
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -30,46 +32,6 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-
-def custom_login(request):
-    form = forms.CustomLoginForm()
-    
-    if request.method == 'POST':
-        form = forms.CustomLoginForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('email')
-            password = form.cleaned_data.get('password')
-            user = authenticate(email=username, password=password)
-            if user is not None:
-                auth_login(request, user)
-                messages.success(request, "Welcome {}".format(request.user.first_name))
-                return HttpResponseRedirect('/login_success/')
-            else:
-                messages.error(request, "Your user name or password is incorect")
-    return render(request, 'registration/login.html', {'form': form})
-
-
-
-
-
-def logout_view(request):
-    logout(request)
-    return redirect("/home/")
-
-'''
-class SignUp(APIView):
-    def post(self, request, format=None):
-        form_class = forms.UserCreateForm
-        success_url = "accounts/pre/"
-        #template_name = "accounts/signup.html"
-        def form_valid(self, form):
-            valid = super(SignUp, self).form_valid(form)
-            email, password = form.cleaned_data.get('email'), form.cleaned_data.get('password1')
-            new_user = authenticate(email=email, password=password)
-            auth_login(self.request, new_user)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-'''
-
 class CreateUserView(CreateAPIView):
 
     model = get_user_model()
@@ -78,15 +40,4 @@ class CreateUserView(CreateAPIView):
     ]
     serializer_class = UserSerializer
 
-@login_required    
-def Edit(request): 
-    form = forms.UserCreateForm(instance=request.user)
-    
-    if request.method == 'POST':
-        form = forms.UserCreateForm(instance=request.user, data=request.POST, files=request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Updated {}".format(form.cleaned_data['name']))
-            return HttpResponseRedirect('/')
-    return render(request, 'accounts/signup.html', {'form': form})
 
