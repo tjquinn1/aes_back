@@ -67,15 +67,15 @@ class User(AbstractBaseUser, PermissionsMixin):
 	USERNAME_FIELD = 'email'
 	REQUIRED_FIELDS = ['first_name', 'last_name', 'pos']
 
+	def __str__(self):
+		return '%s %s' % (self.first_name, self.last_name)
+
 	def get_full_name(self):
 		# The user is identified by their email address
 		return self.email
 
 	def get_short_name(self):
 		# The user is identified by their email address
-		return self.first_name
-
-	def __str__(self):              # __unicode__ on Python 2
 		return self.first_name
 
 	def has_perm(self, perm, obj=None):

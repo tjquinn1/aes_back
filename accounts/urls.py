@@ -12,5 +12,5 @@ app_name = 'accounts'
 
 urlpatterns = [
     url(r'^login/', obtain_jwt_token),
-    url(r'^register', views.CreateUserView.as_view(), name="reg"),
+    #url(r'^register', views.CreateUserView.as_view(), name="reg"),
 	url(r'^verify/', verify_jwt_token),]

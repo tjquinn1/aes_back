@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
  # If used custom user model
 
 class CounselorSerializer(serializers.ModelSerializer):
+	user = serializers.StringRelatedField(many=False)
 	class Meta:
 		model = Counselor
 		fields = (

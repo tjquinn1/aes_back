@@ -20,9 +20,7 @@ class Counselor(models.Model):
 	satEnd = models.TimeField(null=False, blank=False)
 
 class Course(models.Model):
-	counselor1 = models.ForeignKey(to=Counselor,null=False, blank=False, on_delete=models.CASCADE)
-	counselor2 = models.ForeignKey(to=Counselor,null=True, blank=True, related_name='counselor2',on_delete=models.CASCADE)
-	counselor3 = models.ForeignKey(to=Counselor,null=True, blank=True, related_name='counselor3',on_delete=models.CASCADE)
+	counselors = models.ManyToManyField(Counselor, through='CounselorCourse')
 	startTime = models.TimeField(null=False, blank=False)
 	endTime = models.TimeField(null=False, blank=False)
 	sun = models.BooleanField(null=False,blank=False)
@@ -33,4 +31,10 @@ class Course(models.Model):
 	fri = models.BooleanField(null=False,blank=False)
 	sat = models.BooleanField(null=False,blank=False)
 	numPpl = models.IntegerField(null=False,blank=False )
+	name = models.CharField(max_length=100, blank=False, null=False)
+
+class CounselorCourse(models.Model):
+	counselor = models.ForeignKey(to=Counselor,null=False, blank=False, on_delete=models.CASCADE)
+	course = models.ForeignKey(to=Course,null=False, blank=False, on_delete=models.CASCADE)
+	priority = models.IntegerField(null=False, blank=False)
 
