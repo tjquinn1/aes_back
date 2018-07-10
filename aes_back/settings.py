@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['127.0.0.1' ,'http://localhost:8080/#/', 'http://localhost:8000
 
 INSTALLED_APPS = [
     'accounts',
+	'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,14 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'corsheaders',
-	'clients'
+	'consul',
+	'clients',
 ]
 
 MIDDLEWARE = [
+	'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -61,19 +62,18 @@ ROOT_URLCONF = 'aes_back.urls'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        #'rest_framework.permissions.IsAuthenticated',
-        'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticated',
+        #'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        #'rest_framework.authentication.SessionAuthentication',
-        #'rest_framework.authentication.TokenAuthentication',
-        #'rest_framework.authentication.BasicAuthentication',
     ),
 }
 CORS_ORIGIN_WHITELIST = (
     'localhost:8000',
     'localhost:8080',
+	'localhost:8080/mast',
+	'127.0.0.1:8080'
 )
 
 CSRF_TRUSTED_ORIGINS = (
@@ -83,7 +83,8 @@ CSRF_TRUSTED_ORIGINS = (
 
 
 JWT_AUTH = {
-    'JWT_ALLOW_REFRESH': True,
+	'JWT_VERIFY': True,
+	'JWT_VERIFY_EXPIRATION': True,
     'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
 }
@@ -161,3 +162,6 @@ AUTH_USER_MODEL = "accounts.User"
 LOGIN_REDIRECT_URL = '/login_success/'
 
 CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_NAME = "XSRF-TOKEN"
+CSRF_USE_SESSIONS = False

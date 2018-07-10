@@ -8,11 +8,6 @@ from django.utils import timezone
 import binascii
 import os
 from django.conf import settings
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from rest_framework.authtoken.models import Token
-
-
 
 class UserManager(BaseUserManager):
 	def create_user(self, email, first_name, last_name, password, pos):
@@ -65,13 +60,15 @@ class User(AbstractBaseUser, PermissionsMixin):
 	date_joined = models.DateTimeField(default=timezone.now)
 	is_active = models.BooleanField(default=True)
 	is_staff = models.BooleanField(default=False)
-	pos = models.CharField(max_length=4, null=True) 
-	token = models.CharField(max_length=40, null=True)
+	pos = models.CharField(max_length=4, null=True)
 
 	objects = UserManager()
 
 	USERNAME_FIELD = 'email'
 	REQUIRED_FIELDS = ['first_name', 'last_name', 'pos']
+
+	def __str__(self):
+		return '%s %s' % (self.first_name, self.last_name)
 
 	def get_full_name(self):
 		# The user is identified by their email address
@@ -79,9 +76,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 	def get_short_name(self):
 		# The user is identified by their email address
-		return self.first_name
-
-	def __str__(self):              # __unicode__ on Python 2
 		return self.first_name
 
 	def has_perm(self, perm, obj=None):
@@ -99,8 +93,3 @@ class User(AbstractBaseUser, PermissionsMixin):
 		"Is the user a member of staff?"
 		# Simplest possible answer: All admins are staff
 		return self.is_superuser
-
-@receiver(post_save, sender=settings.AUTH_USER_MODEL)
-def create_auth_token(sender, instance=None, created=False, **kwargs):
-	if created:
-		Token.objects.create(user=instance)
