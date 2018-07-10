@@ -1,21 +1,31 @@
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from clients.serializers import MastSerializer
+from clients.serializers import MastSerializer, ProfileSerializer 
 from rest_framework import viewsets
 from rest_framework.response import Response
-from clients.models import Mast
 from rest_framework.views import APIView
 from rest_framework import status
 
 # Create your views here.
 
-# class MastViewSet(viewsets.ModelViewSet):
-# 	queryset = Mast.objects.all()
-# 	serializer_class = MastSerializer
+
 
 class MastView(APIView):
-	serializer_class = MastSerializer
 	def post(self, request):
-		print(request.user.first_name)
-		return Response(status=status.HTTP_201_CREATED)
+		mast = MastSerializer(data=request.data)
+		print(request.user.id)
+		if mast.is_valid():
+			mast.save(client=self.request.user)
+			return Response(status=status.HTTP_201_CREATED)
+		return Response(mast.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ProfileView(APIView):
+	def post(self, request):
+		profile = MastSerializer(data=request.data)
+		print(request.user.id)
+		if profile.is_valid():
+			profile.save(client=self.request.user)
+			return Response(status=status.HTTP_201_CREATED)
+		return Response(profile.errors, status=status.HTTP_400_BAD_REQUEST)
+

@@ -1,27 +1,16 @@
-from django.contrib.auth import logout
-from django.contrib.auth import login as auth_login
-from django.contrib.auth.forms import AuthenticationForm
-from django.urls import reverse_lazy
-from django.views import generic
-from django.contrib.auth import authenticate
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, render
-from . import forms
-from django.template import RequestContext
-from django.contrib.auth import authenticate
-from django.http import HttpResponseRedirect
 import random
 import string
-from django.contrib import messages
-from rest_framework import viewsets
+
 from accounts.serializers import UserSerializer
-from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate, get_user_model
+from django.contrib.auth import login as auth_login
+from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import api_view
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.views import APIView
-from rest_framework import permissions, status
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from . import forms
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -39,5 +28,3 @@ class CreateUserView(CreateAPIView):
         permissions.AllowAny # Or anon users can't register
     ]
     serializer_class = UserSerializer
-
-
