@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from datetime import datetime
-from .models import Counselor
+from .models import Counselor, CounselorCourse
 
 # Create your views here.
 
@@ -44,8 +44,27 @@ class CourseView(APIView):
 	def post(self, request):
 		data = request.data
 		course = CourseSerializer(data=request.data)
+		print(request.data)
 		if course.is_valid():
-			course.save()
+			course_saved = course.save(
+				startTime = datetime.strptime(data.get('startTime'), '%H:%M').time(),
+				endTime = datetime.strptime(data.get('endTime'), '%H:%M').time(),
+				sun = data.get('sun'),
+				mon = data.get('mon'),
+				tue = data.get('tue'),
+				wed = data.get('wed'),
+				thur = data.get('thur'),
+				fri = data.get('fri'),
+				sat = data.get('sat'),
+				numPpl = data.get('sumPpl'),
+				name = data.get('name')
+			)
+			counselor = Counselor.objects.get(id=data.get('counselors'))
+			CounselorCourse.objects.create(
+				counselor = counselor,
+				course = course_saved,
+				priority = 1
+			)
 			return Response(status=status.HTTP_201_CREATED)
 		return Response(course.errors, status=status.HTTP_400_BAD_REQUEST)
 

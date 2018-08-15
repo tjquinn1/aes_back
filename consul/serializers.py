@@ -1,10 +1,11 @@
 from rest_framework import serializers
 from consul.models import Counselor, Course
 from django.contrib.auth import get_user_model
+from accounts.serializers import UserSerializer
  # If used custom user model
 
 class CounselorSerializer(serializers.ModelSerializer):
-	user = serializers.StringRelatedField(many=False)
+	user = UserSerializer(many=False, read_only=True)
 	class Meta:
 		model = Counselor
 		fields = (
@@ -29,9 +30,7 @@ class CourseSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Course
 		fields = (
-			'counselor1',
-			'counselor2',
-			'counselor3',
+			'counselors',
 			'startTime',
 			'endTime',
 			'sun',
