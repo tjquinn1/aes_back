@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from datetime import datetime
-from .models import Counselor, CounselorCourse
+from .models import Counselor, CounselorCourse, Course
 
 # Create your views here.
 
