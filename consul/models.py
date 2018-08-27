@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
 
 # Create your models here.
 class Counselor(models.Model):
@@ -37,4 +38,21 @@ class CounselorCourse(models.Model):
 	counselor = models.ForeignKey(to=Counselor,null=False, blank=False, on_delete=models.CASCADE)
 	course = models.ForeignKey(to=Course,null=False, blank=False, on_delete=models.CASCADE)
 	priority = models.IntegerField(null=False, blank=False)
+
+class Contact(models.Model):
+	name = models.CharField(max_length=30, null=False, blank=False)
+	email = models.EmailField(max_length=25, null=False, blank=False)
+	phone = models.CharField(max_length=11, null=False, blank=False)
+	message = models.CharField(max_length=500, null=False, blank=True)
+	title = models.CharField(max_length=20, null=False, blank=False)
+	q1 = models.CharField(max_length=5, null=False, blank=False)
+	dui = models.CharField(max_length=20, null=False, blank=True)
+	famCounseling = models.CharField(max_length=20, null=False, blank=True)
+	domViolence = models.CharField(max_length=20, null=False, blank=True)
+	empAssistance = models.CharField(max_length=20, null=False, blank=True)
+	partnership = models.CharField(max_length=25, null=False, blank=True)
+	teenHelp = models.CharField(max_length=20, null=False, blank=True)
+	athCounseling = models.CharField(max_length=20, null=False, blank=True)
+	submitted = models.DateTimeField(default=timezone.now)
+
 

@@ -12,6 +12,6 @@ app_name = 'consul'
 urlpatterns = [
 	#url(r"mast/$", views.MastView.as_view(), name="Mast")
 	url(r"counselor/$", views.CounselorView.as_view(), name="Counselor"),
-	url(r"course/$", views.CourseView.as_view(), name="Course")
-
+	url(r"course/$", views.CourseView.as_view(), name="Course"),
+	url(r"contact/$", views.ContactView.as_view(), name="Contact")
 ]

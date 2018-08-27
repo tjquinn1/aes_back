@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from consul.serializers import CounselorSerializer, CourseSerializer
+from consul.serializers import CounselorSerializer, CourseSerializer, ContactSerializer
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -42,7 +42,6 @@ class CounselorView(APIView):
 
 class CourseView(APIView):
 	def post(self, request):
-		data = request.data
 		course = CourseSerializer(data=request.data)
 		if course.is_valid():
 			course.save()
@@ -53,3 +52,11 @@ class CourseView(APIView):
 		course = Course.objects.all()
 		serializer = CourseSerializer(course, many=True)
 		return Response(serializer.data)
+
+class ContactView(APIView):
+	def post(self, request):
+		contact = ContactSerializer(data=request.data)
+		if contact.is_valid():
+			contact.save()
+			return Response(status=status.HTTP_201_CREATED)
+		return Response(contact.errors, status=status.HTTP_400_BAD_REQUEST)

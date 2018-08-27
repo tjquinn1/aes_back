@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from consul.models import Counselor, Course
+from consul.models import Counselor, Course, Contact
 from django.contrib.auth import get_user_model
  # If used custom user model
 
@@ -41,4 +41,24 @@ class CourseSerializer(serializers.ModelSerializer):
 			'thur',
 			'fri',
 			'sat'
+			)
+
+class ContactSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Contact
+		fields = (
+			'name',
+			'email',
+			'phone',
+			'message',
+			'title',
+			'q1',
+			'dui',
+			'famCounseling',
+			'domViolence',
+			'empAssistance',
+			'partnership',
+			'teenHelp',
+			'athCounseling',
+			'submitted',
 			)
