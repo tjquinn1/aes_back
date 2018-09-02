@@ -163,3 +163,8 @@ class PsychSoc(models.Model):
 	pcpLast = models.CharField(max_length=2, blank=True, null=True)
 	pcpFreq = models.CharField(max_length=22, blank=True, null=True)
 	pcpAmount = models.CharField(max_length=30, blank=True, null=True)
+	su12 = models.BooleanField(null=False, blank=False, default=False)
+	preFirst = models.CharField(max_length=2, blank=True, null=True)
+	preLast = models.CharField(max_length=2, blank=True, null=True)
+	preFreq = models.CharField(max_length=22, blank=True, null=True)
+	preAmount = models.CharField(max_length=30, blank=True, null=True)
