@@ -69,6 +69,30 @@ class CourseView(APIView):
 		return Response(course.errors, status=status.HTTP_400_BAD_REQUEST)
 
 	def get(self, request):
-		course = Course.objects.all()
-		serializer = CourseSerializer(course, many=True)
-		return Response(serializer.data)
+		courses = Course.objects.all()
+		days = {'sun':[], 'mon': [], 'tue': [], 'wed': [], 'thur': [], 'fri': [], 'sat':[]}
+		for course in courses:
+			if course.sun:
+				course_serializer = CourseSerializer(course)
+				days['sun'].append(course_serializer.data)
+			if course.mon:
+				course_serializer = CourseSerializer(course)
+				days['mon'].append(course_serializer.data)
+			if course.tue:
+				course_serializer = CourseSerializer(course)
+				days['tue'].append(course_serializer.data)
+			if course.wed:
+				course_serializer = CourseSerializer(course)
+				days['wed'].append(course_serializer.data)
+			if course.thur:
+				course_serializer = CourseSerializer(course)
+				days['thur'].append(course_serializer.data)
+			if course.fri:
+				course_serializer = CourseSerializer(course)
+				days['fri'].append(course_serializer.data)
+			if course.sat:
+				course_serializer = CourseSerializer(course)
+				days['sat'].append(course_serializer.data)
+		print(days)
+		#serializer = CourseSerializer(days, many=True)
+		return Response(days)
