@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from consul.models import Counselor, Course
 from django.contrib.auth import get_user_model
-from accounts.serializers import UserSerializer
+from accounts.serializers import UserSerializer, UserInfoSerializer
  # If used custom user model
 
 class CounselorSerializer(serializers.ModelSerializer):
@@ -27,6 +27,23 @@ class CounselorSerializer(serializers.ModelSerializer):
 			)
 		depth = 1
 class CourseSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Course
+		fields = (
+			'counselors',
+			'startTime',
+			'endTime',
+			'sun',
+			'mon',
+			'tue',
+			'wed',
+			'thur',
+			'fri',
+			'sat'
+			)
+		
+class CourseCounselorSerializer(serializers.ModelSerializer):
+	counselors = CounselorSerializer(many=True)
 	class Meta:
 		model = Course
 		fields = (

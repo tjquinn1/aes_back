@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from consul.serializers import CounselorSerializer, CourseSerializer
+from consul.serializers import CounselorSerializer, CourseSerializer, CourseCounselorSerializer
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -73,8 +73,17 @@ class CourseView(APIView):
 		days = {'sun':[], 'mon': [], 'tue': [], 'wed': [], 'thur': [], 'fri': [], 'sat':[]}
 		for course in courses:
 			if course.sun:
-				course_serializer = CourseSerializer(course)
+				course_serializer = CourseCounselorSerializer(course)
 				days['sun'].append(course_serializer.data)
+				print(days['sun'])
+				# #print(course_serializer.data['counselors'][0])
+				# counselor_id = course_serializer.data['counselors'][0]
+				# counselor = Counselor.objects.get(id=counselor_id)
+				# course_serializer.data['counselors'] = {'id': counselor.id, 'name': counselor.user}
+				# print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
+				# course_serializer.data['counselors'] = 'hello'
+				# print(course_serializer.data['counselors'])
+				# #print(course_serializer.data['counselors'])
 			if course.mon:
 				course_serializer = CourseSerializer(course)
 				days['mon'].append(course_serializer.data)
@@ -93,6 +102,5 @@ class CourseView(APIView):
 			if course.sat:
 				course_serializer = CourseSerializer(course)
 				days['sat'].append(course_serializer.data)
-		print(days)
 		#serializer = CourseSerializer(days, many=True)
 		return Response(days)
