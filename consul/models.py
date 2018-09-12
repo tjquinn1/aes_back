@@ -55,4 +55,9 @@ class Contact(models.Model):
 	athCounseling = models.CharField(max_length=20, null=False, blank=True)
 	submitted = models.DateTimeField(default=timezone.now)
 
+class ScheduleClass(models.Model):
+	user = models.ForeignKey(to=settings.AUTH_USER_MODEL,null=True, blank=True, on_delete=models.CASCADE)
+	course_sched = models.ForeignKey(to=Course,null=True, blank=True, on_delete=models.CASCADE)
+	date = models.DateField(null=False, blank=False)
+
 
