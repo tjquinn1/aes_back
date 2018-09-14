@@ -75,32 +75,23 @@ class CourseView(APIView):
 			if course.sun:
 				course_serializer = CourseCounselorSerializer(course)
 				days['sun'].append(course_serializer.data)
-				print(days['sun'])
-				# #print(course_serializer.data['counselors'][0])
-				# counselor_id = course_serializer.data['counselors'][0]
-				# counselor = Counselor.objects.get(id=counselor_id)
-				# course_serializer.data['counselors'] = {'id': counselor.id, 'name': counselor.user}
-				# print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
-				# course_serializer.data['counselors'] = 'hello'
-				# print(course_serializer.data['counselors'])
-				# #print(course_serializer.data['counselors'])
 			if course.mon:
-				course_serializer = CourseSerializer(course)
+				course_serializer = CourseCounselorSerializer(course)
 				days['mon'].append(course_serializer.data)
 			if course.tue:
-				course_serializer = CourseSerializer(course)
+				course_serializer = CourseCounselorSerializer(course)
 				days['tue'].append(course_serializer.data)
 			if course.wed:
-				course_serializer = CourseSerializer(course)
+				course_serializer = CourseCounselorSerializer(course)
 				days['wed'].append(course_serializer.data)
 			if course.thur:
-				course_serializer = CourseSerializer(course)
+				course_serializer = CourseCounselorSerializer(course)
 				days['thur'].append(course_serializer.data)
 			if course.fri:
-				course_serializer = CourseSerializer(course)
+				course_serializer = CourseCounselorSerializer(course)
 				days['fri'].append(course_serializer.data)
 			if course.sat:
-				course_serializer = CourseSerializer(course)
+				course_serializer = CourseCounselorSerializer(course)
 				days['sat'].append(course_serializer.data)
 		#serializer = CourseSerializer(days, many=True)
 		return Response(days)
