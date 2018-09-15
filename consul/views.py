@@ -66,13 +66,13 @@ class ScheduleClassView(APIView):
 	@action(detail=False)
 	def get(self, request):
 		user_id = request.user.id
-		counselor = Counselor.objects.get(user_id=2)
+		counselor = Counselor.objects.get(user_id=user_id)
 		#courses_counselor = CounselorCourse(counselor_id=counselor)
 		course_counselor = counselor.course_set.all()
-		print(course_counselor)
-		print(dir(course_counselor))
-		#schedule_course = ScheduleCourseSerializer(data=request.data)
-		return Response("Innercept")
+	#	print(course_counselor)
+	#	print(dir(course_counselor))
+		schedule_course = ScheduleCourseSerializer(course_counselor, many=True)
+		return Response(schedule_course.data)
 
 #	@action(detail=False)
 #	def class_dates_get(self, request):
