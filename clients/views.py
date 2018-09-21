@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from clients.serializers import MastSerializer, ProfileSerializer 
+from clients.serializers import MastSerializer, ProfileSerializer, ClassesClientSerializer 
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -28,4 +28,20 @@ class ProfileView(APIView):
 			profile.save(client=self.request.user)
 			return Response(status=status.HTTP_201_CREATED)
 		return Response(profile.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ClientClassesView(APIView):
+
+	def post(self, request):
+		data = request.data
+		for course in data['selected']:
+			d = {'client':request.user.id, 'course': course[1], 'course_date':course[2]}
+			client_classes = ClassesClientSerializer(data=d)
+			print(client_classes)
+			if client_classes.is_valid():
+				client_classes.save()
+		if client_classes.errors:
+			return Response(client_classes.errors, status=status.HTTP_400_BAD_REQUEST)
+		else:
+			return Response(status=status.HTTP_201_CREATED)
+
 

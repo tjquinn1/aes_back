@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from consul.models import Course
 # Create your models here.
 class Mast(models.Model):
 	client = models.ForeignKey(to=settings.AUTH_USER_MODEL,null=True, blank=True, on_delete=models.CASCADE)
@@ -163,3 +164,10 @@ class PsychSoc(models.Model):
 	pcpLast = models.CharField(max_length=2, blank=True, null=True)
 	pcpFreq = models.CharField(max_length=22, blank=True, null=True)
 	pcpAmount = models.CharField(max_length=30, blank=True, null=True)
+
+
+class ClassesClient(models.Model):
+	client = models.ForeignKey(to=settings.AUTH_USER_MODEL,null=True, blank=True, on_delete=models.CASCADE)
+	course = models.ForeignKey(to=Course,null=False, blank=False, on_delete=models.CASCADE)
+	course_date = models.DateField()
+	signup_date = models.DateTimeField(auto_now=True)

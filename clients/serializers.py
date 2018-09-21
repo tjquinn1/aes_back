@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from clients.models import Mast, Profile
+from clients.models import Mast, Profile, ClassesClient
 from django.contrib.auth import get_user_model
  # If used custom user model
 
@@ -66,3 +66,12 @@ class ProfileSerializer(serializers.ModelSerializer):
 			'occupation',
 			'collegeGrad'
 			)
+
+class ClassesClientSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = ClassesClient
+		fields = (
+			'client',
+			'course',
+			'course_date'
+		)

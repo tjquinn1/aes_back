@@ -47,6 +47,7 @@ class CourseCounselorSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Course
 		fields = (
+			'id',
 			'counselors',
 			'startTime',
 			'endTime',
