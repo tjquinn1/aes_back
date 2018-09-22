@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from clients.models import Mast, Profile, ClassesClient
 from django.contrib.auth import get_user_model
+from consul.models import Counselor
+from consul.serializers import Course2Serializer
  # If used custom user model
 
 class MastSerializer(serializers.ModelSerializer):
@@ -77,6 +79,7 @@ class ClassesClientSerializer(serializers.ModelSerializer):
 		)
 
 class ClassesClient2Serializer(serializers.ModelSerializer):
+	course = Course2Serializer()
 	class Meta:
 		model = ClassesClient
 		fields = (

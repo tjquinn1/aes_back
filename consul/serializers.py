@@ -59,3 +59,23 @@ class CourseCounselorSerializer(serializers.ModelSerializer):
 			'fri',
 			'sat'
 			)
+
+class CounselorInfoSerializer(serializers.ModelSerializer):
+	user = UserInfoSerializer()
+	class Meta:
+		model = Counselor
+		fields = (
+			'user',
+			)
+
+
+class Course2Serializer(serializers.ModelSerializer):
+	counselors = CounselorInfoSerializer(many=True)
+	class Meta:
+		model = Course
+		fields = (
+			'counselors',
+			'startTime',
+			'endTime',
+			'name',
+			)
