@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from clients.serializers import MastSerializer, ProfileSerializer, ClassesClientSerializer 
+from clients.serializers import MastSerializer, ProfileSerializer, ClassesClientSerializer, ClassesClient2Serializer 
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+from .models import ClassesClient
 
 # Create your views here.
 
@@ -43,5 +44,10 @@ class ClientClassesView(APIView):
 			return Response(client_classes.errors, status=status.HTTP_400_BAD_REQUEST)
 		else:
 			return Response(status=status.HTTP_201_CREATED)
+
+	def get(self, request):
+		client_classes = ClassesClient.objects.filter(client_id=request.user)
+		serializer = ClassesClient2Serializer(client_classes, many=True)
+		return Response(serializer.data)
 
 

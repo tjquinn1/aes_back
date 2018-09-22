@@ -75,3 +75,12 @@ class ClassesClientSerializer(serializers.ModelSerializer):
 			'course',
 			'course_date'
 		)
+
+class ClassesClient2Serializer(serializers.ModelSerializer):
+	class Meta:
+		model = ClassesClient
+		fields = (
+			'course',
+			'course_date'
+		)
+		depth = 1
