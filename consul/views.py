@@ -59,7 +59,7 @@ class CourseView(APIView):
 				numPpl = data.get('sumPpl'),
 				name = data.get('name')
 			)
-			counselor = Counselor.objects.get(id=data.get('counselors'))
+			counselor = Counselor.objects.get(user_id=data.get('counselors'))
 			CounselorCourse.objects.create(
 				counselor = counselor,
 				course = course_saved,
