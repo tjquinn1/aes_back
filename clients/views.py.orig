@@ -30,6 +30,7 @@ class ProfileView(APIView):
 			return Response(status=status.HTTP_201_CREATED)
 		return Response(profile.errors, status=status.HTTP_400_BAD_REQUEST)
 
+<<<<<<< HEAD
 class PsychSocView(APIView):
 	def post(self, request):
 		psychSoc = PsychSocSerializer(data=request.data)
@@ -38,6 +39,7 @@ class PsychSocView(APIView):
 			psychSoc.save(client=self.request.user)
 			return Response(status=status.HTTP_201_CREATED)
 		return Response(psychSoc.errors, status=status.HTTP_400_BAD_REQUEST)
+=======
 class ClientClassesView(APIView):
 
 	def post(self, request):
@@ -59,3 +61,4 @@ class ClientClassesView(APIView):
 		return Response(serializer.data)
 
 
+>>>>>>> admin

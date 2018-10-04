@@ -165,3 +165,6 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 CSRF_COOKIE_NAME = "XSRF-TOKEN"
 CSRF_USE_SESSIONS = False
+
+import django_heroku
+django_heroku.settings(locals())
