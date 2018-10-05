@@ -27,7 +27,7 @@ SECRET_KEY = 'w+momi%!0$)425lg5@bso0-nvlfxz=lc)6ttd-m!*q)9dc^^ro'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1' ,'http://localhost:8080/#/', 'http://localhost:8000', 'http://127.0.0.1:56102', 'aes-front.herokuapp.com', 'http://localhost:5000']
+ALLOWED_HOSTS = ['127.0.0.1' ,'http://localhost:8080/#/', 'http://localhost:8000', 'http://127.0.0.1:56102', 'aes-front.herokuapp.com', 'localhost:5000']
 
 
 # Application definition
@@ -76,13 +76,13 @@ CORS_ORIGIN_WHITELIST = (
     'localhost:8080',
 	'localhost:8080/mast',
 	'127.0.0.1:8080',
-    'http://localhost:5000'
+    'localhost:5000'
 )
 
 CSRF_TRUSTED_ORIGINS = (
     'localhost:8080',
     'localhost:8000',
-    'http://localhost:5000'
+    'localhost:5000'
 )
 
 
