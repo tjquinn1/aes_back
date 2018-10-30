@@ -50,7 +50,7 @@ from . import forms
 class UserViewSet(viewsets.ModelViewSet):
 
 	authentication_classes = []
-    permission_classes = []
+	permission_classes = []
 	"""
 	API endpoint that allows users to be viewed or edited.
 	"""
