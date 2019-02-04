@@ -31,14 +31,16 @@ class Course(models.Model):
 	thur = models.BooleanField(null=False,blank=False)
 	fri = models.BooleanField(null=False,blank=False)
 	sat = models.BooleanField(null=False,blank=False)
-	numPpl = models.IntegerField(null=False,blank=False )
+	numPpl = models.IntegerField(null=False,blank=False)
 	name = models.CharField(max_length=100, blank=False, null=False)
+	created = models.DateTimeField(default=timezone.now)
 
 class CounselorCourse(models.Model):
 	counselor = models.ForeignKey(to=Counselor,null=False, blank=False, on_delete=models.CASCADE)
 	course = models.ForeignKey(to=Course,null=False, blank=False, on_delete=models.CASCADE)
 	priority = models.IntegerField(null=False, blank=False)
-
+	created = models.DateTimeField(default=timezone.now)
+	
 class Contact(models.Model):
 	name = models.CharField(max_length=30, null=False, blank=False)
 	email = models.EmailField(max_length=25, null=False, blank=False)

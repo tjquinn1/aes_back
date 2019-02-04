@@ -45,20 +45,8 @@ class CourseView(APIView):
 		course = CourseSerializer(data=request.data)
 		print(request.data)
 		if course.is_valid():
-			course_saved = course.save(
-				startTime = datetime.strptime(data.get('startTime'), '%H:%M').time(),
-				endTime = datetime.strptime(data.get('endTime'), '%H:%M').time(),
-				sun = data.get('sun'),
-				mon = data.get('mon'),
-				tue = data.get('tue'),
-				wed = data.get('wed'),
-				thur = data.get('thur'),
-				fri = data.get('fri'),
-				sat = data.get('sat'),
-				numPpl = data.get('sumPpl'),
-				name = data.get('name')
-			)
-			counselor = Counselor.objects.get(user_id=data.get('counselors'))
+			course_saved = course.save()
+			counselor = Counselor.objects.get(user_id=request.data.get('counselors'))
 			CounselorCourse.objects.create(
 				counselor = counselor,
 				course = course_saved,
@@ -69,7 +57,7 @@ class CourseView(APIView):
 
 	def get(self, request):
 		course = Course.objects.all()
-		serializer = CourseSerializer(course, many=True)
+		serializer = CourseCounselorSerializer(course, many=True)
 		return Response(serializer.data)
 
 class ContactView(APIView):
