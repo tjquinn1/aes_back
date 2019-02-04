@@ -39,7 +39,9 @@ class CourseSerializer(serializers.ModelSerializer):
 			'wed',
 			'thur',
 			'fri',
-			'sat'
+			'sat',
+			'numPpl',
+			'name'
 			)
 
 class ContactSerializer(serializers.ModelSerializer):
@@ -77,7 +79,8 @@ class CourseCounselorSerializer(serializers.ModelSerializer):
 			'wed',
 			'thur',
 			'fri',
-			'sat'
+			'sat',
+			'name'
 			)
 
 class CounselorInfoSerializer(serializers.ModelSerializer):

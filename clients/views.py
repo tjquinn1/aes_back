@@ -6,11 +6,9 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from .models import ClassesClient
+from .models import ClassesClient, Mast
 
 # Create your views here.
-
-
 
 class MastView(APIView):
 	def post(self, request):
@@ -20,6 +18,12 @@ class MastView(APIView):
 			mast.save(client=self.request.user)
 			return Response(status=status.HTTP_201_CREATED)
 		return Response(mast.errors, status=status.HTTP_400_BAD_REQUEST)
+	
+	def get(self, request):
+		mast = Mast.objects.get(client_id=request.user.id)
+		serializer = MastSerializer(mast)
+		return Response(serializer.data)
+
 
 class ProfileView(APIView):
 	def post(self, request):
@@ -38,12 +42,13 @@ class PsychSocView(APIView):
 			psychSoc.save(client=self.request.user)
 			return Response(status=status.HTTP_201_CREATED)
 		return Response(psychSoc.errors, status=status.HTTP_400_BAD_REQUEST)
-class ClientClassesView(APIView):
 
+class ClientClassesView(APIView):
 	def post(self, request):
 		data = request.data
-		for course in data['selected']:
-			d = {'client':request.user.id, 'course': course[1], 'course_date':course[2]}
+		print(data)
+		for key, course in enumerate(data['selected']):
+			d = {'client':request.user.id, 'course': course[1], 'course_date': course[2]}
 			client_classes = ClassesClientSerializer(data=d)
 			print(client_classes)
 			if client_classes.is_valid():
