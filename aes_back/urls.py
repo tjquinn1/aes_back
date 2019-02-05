@@ -20,6 +20,7 @@ from rest_framework import routers
 from aes_back.router import common_router 
 import accounts.urls
 import clients.urls
+import payments.urls
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 
 
@@ -29,6 +30,7 @@ urlpatterns = [
 	re_path(r'^accounts/', include('accounts.urls', namespace='accounts')),
 	re_path(r'^clients/', include('clients.urls', namespace='clients')),
 	re_path(r'^admin/', include('consul.urls', namespace='consul')),
+	re_path(r'^payments/', include('payments.urls', namespace='payments')),
 	re_path(r'^auth/obtain_token/', obtain_jwt_token),
 	re_path(r'^auth/refresh_token/', refresh_jwt_token),
 	re_path(r'^auth/api-token-verify', verify_jwt_token)
