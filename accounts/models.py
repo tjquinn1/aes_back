@@ -10,7 +10,7 @@ import os
 from django.conf import settings
 
 class UserManager(BaseUserManager):
-	def create_user(self, email, first_name, last_name, password, pos):
+	def create_user(self, email, first_name, last_name, password, phone, pos):
 		"""
 		Creates and saves a User with the given email, date of
 		birth and password.
@@ -24,13 +24,14 @@ class UserManager(BaseUserManager):
 			first_name = first_name,
 			last_name = last_name,
 			pos = pos,
+			phone = phone,
 		)
 
 		user.set_password(password)
 		user.save()
 		return user
 
-	def create_superuser(self, email, first_name, last_name, password, pos):
+	def create_superuser(self, email, first_name, last_name, password, phone, pos):
 		"""
 		Creates and saves a superuser with the given email, date of
 		birth and password.
@@ -40,6 +41,7 @@ class UserManager(BaseUserManager):
 			first_name,
 			last_name,
 			password,
+			phone,
 			pos
 		)
 		user.is_staff = True
@@ -60,7 +62,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 	date_joined = models.DateTimeField(default=timezone.now)
 	is_active = models.BooleanField(default=True)
 	is_staff = models.BooleanField(default=False)
-	pos = models.CharField(max_length=4, null=True)
+	pos = models.CharField(max_length=10, null=True)
+	phone = models.CharField(max_length=10, null=True, default="")
 
 	objects = UserManager()
 

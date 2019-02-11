@@ -30,6 +30,7 @@ class Mast(models.Model):
 	q22 = models.BooleanField(null=False, blank=False)
 	q22Yes = models.IntegerField(null=True, blank=True)
 	mastScore = models.IntegerField(null=False, blank=False )
+	reviewed = models.BooleanField(default=False)
 
 class Profile(models.Model):
 	client = models.ForeignKey(to=settings.AUTH_USER_MODEL,null=True, blank=True, on_delete=models.CASCADE)
@@ -169,6 +170,7 @@ class PsychSoc(models.Model):
 	preLast = models.CharField(max_length=2, blank=True, null=True)
 	preFreq = models.CharField(max_length=22, blank=True, null=True)
 	preAmount = models.CharField(max_length=30, blank=True, null=True)
+	reviewed = models.BooleanField(default=False)
 
 
 class ClassesClient(models.Model):
