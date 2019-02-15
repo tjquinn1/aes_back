@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from clients.models import Mast, Profile, ClassesClient, PsychSoc
+from clients.models import Mast, Profile, ClassesClient, PsychSoc, Program
 from django.contrib.auth import get_user_model
 from consul.models import Counselor
 from consul.serializers import Course2Serializer
@@ -197,3 +197,11 @@ class ClassesClient2Serializer(serializers.ModelSerializer):
 			'course_date'
 		)
 		depth = 1
+
+class ProgramSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Program
+		fields = (
+			'client',
+			'program'
+		)

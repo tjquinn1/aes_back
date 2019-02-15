@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from clients.serializers import MastSerializer, ProfileSerializer, ClassesClientSerializer, ClassesClient2Serializer, PsychSocSerializer  
+from clients.serializers import MastSerializer, ProfileSerializer, ClassesClientSerializer, ClassesClient2Serializer, PsychSocSerializer, ProgramSerializer
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from .models import ClassesClient, Mast
+from .models import ClassesClient, Mast, Program
 
 # Create your views here.
 
@@ -63,4 +63,12 @@ class ClientClassesView(APIView):
 		serializer = ClassesClient2Serializer(client_classes, many=True)
 		return Response(serializer.data)
 
+class ProgramView(APIView):
+	def post(self, request):
+		serializer = ProgramSerializer(data=request.data['program'], many=True)
+		print(serializer)
+		if serializer.is_valid():
+			serializer.save(client=self.request.user)
+			return Response(status=status.HTTP_201_CREATED)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
