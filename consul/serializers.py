@@ -66,6 +66,7 @@ class ContactSerializer(serializers.ModelSerializer):
 		
 class CourseCounselorSerializer(serializers.ModelSerializer):
 	counselors = CounselorSerializer(many=True)
+	duration = serializers.DurationField()
 	class Meta:
 		model = Course
 		fields = (
@@ -80,7 +81,8 @@ class CourseCounselorSerializer(serializers.ModelSerializer):
 			'thur',
 			'fri',
 			'sat',
-			'name'
+			'name',
+			'duration'
 			)
 
 class CounselorInfoSerializer(serializers.ModelSerializer):

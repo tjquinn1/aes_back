@@ -6,7 +6,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from datetime import datetime
+from datetime import datetime, date
 from .models import Counselor, CounselorCourse, Course
 
 # Create your views here.
@@ -56,8 +56,11 @@ class CourseView(APIView):
 		return Response(course.errors, status=status.HTTP_400_BAD_REQUEST)
 
 	def get(self, request):
-		course = Course.objects.all()
-		serializer = CourseCounselorSerializer(course, many=True)
+		courses = Course.objects.all()
+		for course in courses:
+			duration = datetime.combine(date.today(), course.endTime) - datetime.combine(date.today(), course.startTime)
+			course.duration = duration
+		serializer = CourseCounselorSerializer(courses, many=True)
 		return Response(serializer.data)
 
 class ContactView(APIView):
