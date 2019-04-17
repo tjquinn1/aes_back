@@ -27,7 +27,7 @@ SECRET_KEY = 'w+momi%!0$)425lg5@bso0-nvlfxz=lc)6ttd-m!*q)9dc^^ro'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1' ,'http://localhost:8080/#/', 'http://localhost:8000', 'http://127.0.0.1:56102', 'https://aes-front.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1' ,'http://localhost:8080', 'http://localhost:8000', 'http://127.0.0.1:56102', 'https://aes-front.herokuapp.com']
 
 
 # Application definition
